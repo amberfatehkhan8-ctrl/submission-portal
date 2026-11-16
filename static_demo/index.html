@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Submission Portal Demo</title>
+</head>
+<body style="font-family:Arial;max-width:600px;margin:30px auto">
+  <h1>Assignment Submission Portal (Demo)</h1>
+  <input id="name" placeholder="Name"><br><br>
+  <input id="reg" placeholder="Registration Number"><br><br>
+  <input id="title" placeholder="Assignment Title"><br><br>
+  <input id="url" placeholder="Submission URL"><br><br>
+  <button onclick="add()">Submit</button>
+  <p id="msg"></p>
+  <ul id="list"></ul>
+  <script>
+    function add() {
+      const v = id => document.getElementById(id).value.trim();
+      const msg = document.getElementById("msg");
+      if (!v("name") || !v("reg") || !v("title") || !v("url")) {
+        msg.textContent = "All fields are required"; return;
+      }
+      if (!/^https?:\/\/[^\s.]+\.[^\s]+$/.test(v("url"))) {
+        msg.textContent = "Submission URL is invalid"; return;
+      }
+      msg.textContent = "Submission saved";
+      const li = document.createElement("li");
+      li.textContent = v("name") + " | " + v("reg") + " | " + v("title") + " | " + v("url");
+      document.getElementById("list").appendChild(li);
+    }
+  </script>
+</body>
+</html>

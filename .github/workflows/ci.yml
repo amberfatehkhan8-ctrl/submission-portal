@@ -5,9 +5,13 @@ on:
 
 jobs:
   test:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -17,6 +21,8 @@ jobs:
 
       - name: Send report to localhost receiver
         if: always()
+        env:
+          REPORT_URL: ${{ secrets.REPORT_URL }}
         run: python send_report.py
 
       - name: Upload report
